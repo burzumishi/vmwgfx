@@ -4,7 +4,7 @@
 
 apt-get install git-core automake libtool libpthread-stubs0-dev xserver-xorg-dev x11proto-xinerama-dev libx11-xcb-dev libxcb-glx0-dev libxrender-dev
 
-apt-get build-dep libgl1-mesa-dri libxcb-glx0-dev linux-headers linux-source
+apt-get build-dep libgl1-mesa-dri libxcb-glx0-dev kernel-headers linux-source
 
 # Download Sources
 git clone git://anongit.freedesktop.org/git/mesa/mesa
