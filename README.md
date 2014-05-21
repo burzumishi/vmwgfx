@@ -1,4 +1,4 @@
 vmwgfx
 ======
 
-VMWare GFX module installer for Linux
+**VMWare GFX Module** installer for **GNU/Linux** (for VMWare Virtual Machines).
