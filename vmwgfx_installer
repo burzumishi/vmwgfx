@@ -38,7 +38,6 @@ find /lib/modules -type f -name vmwgfx.ko -exec rm -fv '{}' \;
 
 # Install New Module
 cd vmwgfx
-./autogen.sh --prefix=/usr
 make
 make install
 cp 00-vmwgfx.rules /etc/udev/rules.d
