@@ -4,7 +4,7 @@
 
 apt-get install git-core automake libtool libpthread-stubs0-dev xserver-xorg-dev x11proto-xinerama-dev libx11-xcb-dev libxcb-glx0-dev libxrender-dev
 
-apt-get build-dep libgl1-mesa-dri libxcb-glx0-dev
+apt-get build-dep libgl1-mesa-dri libxcb-glx0-dev linux-headers linux-source
 
 # Download Sources
 git clone git://anongit.freedesktop.org/git/mesa/mesa
@@ -14,30 +14,31 @@ git clone git://anongit.freedesktop.org/git/xorg/driver/xf86-video-vmware
 
 # Build DRM
 cd drm
-./autogen.sh --prefix=/usr --enable-vmwgfx
+./autogen.sh --prefix=/usr --libdir=/usr/lib64 --enable-vmwgfx
 make
 make install
 cd ..
 
 # Build Mesa
 cd mesa
-./autogen.sh --prefix=/usr --with-gallium-drivers=svga --with-dri-drivers= --enable-xa
+./autogen.sh --prefix=/usr --libdir=/usr/lib64 --with-gallium-drivers=svga --with-dri-drivers= --enable-xa --disable-dri3
 make
 make install
 cd ..
 
 # Build xf86-video-vmware
 cd xf86-video-vmware
-./autogen.sh --prefix=/usr
+./autogen.sh --prefix=/usr --libdir=/usr/lib64
 make
 make install
 cd ..
 
 # Delete Old Module
-rm /lib/modules/`uname -r`/kernel/drivers/gpu/drm/vmwgfx.ko* 
+find /lib/modules -type f -name vmwgfx.ko -exec rm -fv '{}' \;
 
 # Install New Module
 cd vmwgfx
+./autogen.sh --prefix=/usr
 make
 make install
 cp 00-vmwgfx.rules /etc/udev/rules.d
