@@ -2,15 +2,18 @@
 
 # Install dependencies
 
-apt-get install git-core 
-
-apt-get install automake libtool libpthread-stubs0-dev
-
-apt-get install xserver-xorg-dev x11proto-xinerama-dev libx11-xcb-dev libxcb-glx0-dev libxrender-dev
-
-apt-get install kernel-package
-
-apt-get build-dep libgl1-mesa-dri libxcb-glx0-dev
+if [ ! -f "/etc/redhat-release" ]; then
+  apt-get install git-core 
+  apt-get install automake libtool libpthread-stubs0-dev
+  apt-get install xserver-xorg-dev x11proto-xinerama-dev libx11-xcb-dev libxcb-glx0-dev libxrender-dev
+  apt-get install kernel-package
+  apt-get build-dep libgl1-mesa-dri libxcb-glx0-dev
+else
+  yum install mesa-libGL-devel xorg-x11-server-devel xorg-x11-util-macros
+  yum install libXrender-devel.i686
+  yum install automake gcc libtool expat-devel kernel-devel git-core
+  yum install makedepend flex bison
+fi;
 
 # Download Sources
 git clone git://anongit.freedesktop.org/git/mesa/mesa
