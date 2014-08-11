@@ -4,8 +4,10 @@ if [ ! -f "/etc/redhat-release" ]; then
 	apt-get install git-core 
 	apt-get install automake libtool libpthread-stubs0-dev
 	apt-get install xserver-xorg-dev x11proto-xinerama-dev libx11-xcb-dev libxcb-glx0-dev libxrender-dev xutils-dev
-	apt-get install kernel-package linux-source linux-headers-amd64 linux-kbuild-3.14 open-vm-tools-dkms open-vm-tools-dev open-vm-tools
+	apt-get install kernel-package linux-source linux-headers-`uname -r` linux-kbuild-3.14
+	apt-get install open-vm-tools-dkms open-vm-tools-dev open-vm-tools
 	apt-get build-dep libgl1-mesa-dri libxcb-glx0-dev
+        apt-get install linux-source linux-headers-`uname -r` kmod kernel-package gcc-4.6-locales gcc-4.6-multilib libmudflap0-4.6-dev libncurses-dev btrfs-tools docbook-utils
 else
 	yum install mesa-libGL-devel xorg-x11-server-devel xorg-x11-util-macros
 	yum install libXrender-devel.i686
@@ -61,7 +63,7 @@ if [ ! -f "vmwgfx.done" ]; then
 	touch vmwgfx.done
 fi;
 
-depmod -ae
+depmod -a
 
 # Load New Module
 modprobe vmwgfx
